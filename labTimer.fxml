@@ -1,0 +1,29 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<GridPane fx:controller="Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+    <Label text="らぼいん: " GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <Label fx:id="inDate" text="dummy" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <Label text="らぼりだ: " GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+    <Label fx:id="outDate" text="dummy" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+    <Label text="らぼ時間" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <Label fx:id="allTimerLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <Label text="研究時間: " GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <Label fx:id="childTimerLabel1" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    <Label text="休憩時間: " GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <Label fx:id="childTimerLabel2" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+    <Label text="その他時間: " GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+    <Label fx:id="childTimerLabel3" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    <Label text="状態: " GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+    <Label fx:id="statusLabel" text="dummy" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+    <Label fx:id="mainTimerLabel" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    <Button fx:id="mainButton" text="らぼいん/らぼりだ" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+    <Button fx:id="childButton1" text="研究" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+    <Button fx:id="childButton2" text="休憩" GridPane.rowIndex="8" GridPane.columnIndex="2"/>
+    <Button fx:id="childButton3" text="その他" GridPane.rowIndex="8" GridPane.columnIndex="3"/>
+
+
+</GridPane>
