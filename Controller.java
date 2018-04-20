@@ -3,34 +3,24 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import static javafx.animation.Animation.INDEFINITE;
 
-public class Controller {
+public class Controller implements Initializable {
     private LabT mainTimer = new LabT();
     private LabT allTimer = new LabT();
     private LabT researchTimer = new LabT();
     private LabT restTimer = new LabT();
     private LabT otherTimer = new LabT();
 
-    @FXML
-    private Label mainTimerLabel;
-    @FXML
-    private Label allTimerLabel;
-    @FXML
-    public Label childTimerLabel1;
-    @FXML
-    public Label childTimerLabel2;
-    @FXML
-    public Label childTimerLabel3;
-
-    public Controller() {
-        mainTimer.active();
-        allTimer.active();
-        researchTimer.active();
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), //時間経過をトリガにするのはTimelineクラスを使う
+    private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), //時間経過をトリガにするのはTimelineクラスを使う
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent actionEvent) { //ここに書いた処理がDuration.seconds(1)で示した感覚で実行される
                         mainTimer.timeCount();
@@ -46,8 +36,110 @@ public class Controller {
                         childTimerLabel3.setText(otherTimer.formatPrint());
                     }
                 }
-        ));
-        timeline.setCycleCount(INDEFINITE); //何回繰り返すか指定する
-        timeline.play();
+        )
+    );
+
+    @FXML
+    private Label mainTimerLabel;
+    @FXML
+    private Label allTimerLabel;
+    @FXML
+    public Label childTimerLabel1;
+    @FXML
+    public Label childTimerLabel2;
+    @FXML
+    public Label childTimerLabel3;
+    @FXML
+    public Button mainButton;
+    @FXML
+    public Label statusLabel;
+
+    public Controller() {
+
     }
+
+    public void button1Click(ActionEvent actionEvent) {
+        researchTimer.active();
+        restTimer.inactive();
+        otherTimer.inactive();
+
+        mainTimer.reset();
+        mainTimerLabel.setText(mainTimer.formatPrint()); //0に戻ったことを表示
+        statusLabel.setText("研究中");
+
+    }
+
+    public void button2Click(ActionEvent actionEvent) {
+        researchTimer.inactive();
+        restTimer.active();
+        otherTimer.inactive();
+
+        mainTimer.reset();
+        mainTimerLabel.setText(mainTimer.formatPrint());
+        statusLabel.setText("休憩中");
+
+    }
+
+    public void button3Click(ActionEvent actionEvent) {
+        researchTimer.inactive();
+        restTimer.inactive();
+        otherTimer.active();
+
+        mainTimer.reset();
+        mainTimerLabel.setText(mainTimer.formatPrint());
+        statusLabel.setText("その他動作中");
+
+    }
+
+    public void mainButtonClick(ActionEvent actionEvent) {
+        if (mainTimer.getStatus()){ //タイマーが動作中のクリック
+
+            researchTimer.inactive(); //タイマーがstop時、全部非アクティブ前提
+            restTimer.inactive();
+            otherTimer.inactive();
+            allTimer.inactive();
+            mainTimer.inactive();
+
+            timeline.stop();
+
+            mainButton.setText("らぼいん");
+            statusLabel.setText("らぼりだ中");
+
+
+        }else { //タイマーが動作していない
+            mainButton.setText("らぼりだ");
+
+            researchTimer.reset();
+            restTimer.reset();
+            otherTimer.reset();
+            allTimer.reset();
+            mainTimer.reset();
+
+            mainTimerLabel.setText(mainTimer.formatPrint()); //0に戻ったことを表示
+            allTimerLabel.setText(allTimer.formatPrint());
+            childTimerLabel1.setText(researchTimer.formatPrint());
+            childTimerLabel2.setText(restTimer.formatPrint());
+            childTimerLabel3.setText(otherTimer.formatPrint());
+
+            mainTimer.active();
+            allTimer.active();
+            button1Click(null); //らぼいん初回は研究中とする
+
+            timeline.setCycleCount(INDEFINITE); //何回繰り返すか指定する
+            timeline.play();
+
+        }
+
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        mainTimerLabel.setText(mainTimer.formatPrint());
+        allTimerLabel.setText(allTimer.formatPrint());
+        childTimerLabel1.setText(researchTimer.formatPrint());
+        childTimerLabel2.setText(restTimer.formatPrint());
+        childTimerLabel3.setText(otherTimer.formatPrint());
+        mainButton.setText("らぼいん");
+        statusLabel.setText("らぼりだ中");
+    }
+
 }

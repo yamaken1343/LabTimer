@@ -11,6 +11,9 @@ class LabT {
     long getTime(){
         return time;
     }
+    boolean getStatus() {
+        return status;
+    }
     void active(){
         status = true;
     }

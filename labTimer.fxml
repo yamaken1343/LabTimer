@@ -20,10 +20,10 @@
     <Label text="状態: " GridPane.rowIndex="6" GridPane.columnIndex="0"/>
     <Label fx:id="statusLabel" text="dummy" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
     <Label fx:id="mainTimerLabel" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
-    <Button fx:id="mainButton" text="らぼいん/らぼりだ" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-    <Button fx:id="childButton1" text="研究" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
-    <Button fx:id="childButton2" text="休憩" GridPane.rowIndex="8" GridPane.columnIndex="2"/>
-    <Button fx:id="childButton3" text="その他" GridPane.rowIndex="8" GridPane.columnIndex="3"/>
+    <Button fx:id="mainButton" GridPane.rowIndex="8" GridPane.columnIndex="0" onAction="#mainButtonClick"/>
+    <Button fx:id="childButton1" text="研究" GridPane.rowIndex="8" GridPane.columnIndex="1" onAction="#button1Click"/>
+    <Button fx:id="childButton2" text="休憩" GridPane.rowIndex="8" GridPane.columnIndex="2" onAction="#button2Click"/>
+    <Button fx:id="childButton3" text="その他" GridPane.rowIndex="8" GridPane.columnIndex="3" onAction="#button3Click"/>
 
 
 </GridPane>
