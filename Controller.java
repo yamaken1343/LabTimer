@@ -9,6 +9,8 @@ import javafx.util.Duration;
 import javafx.scene.control.Label;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import static javafx.animation.Animation.INDEFINITE;
@@ -20,6 +22,9 @@ public class Controller implements Initializable {
     private LabT restTimer = new LabT();
     private LabT otherTimer = new LabT();
 
+    private LocalDateTime dt;
+    private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm:ss");
+
     private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), //時間経過をトリガにするのはTimelineクラスを使う
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent actionEvent) { //ここに書いた処理がDuration.seconds(1)で示した感覚で実行される
@@ -28,6 +33,9 @@ public class Controller implements Initializable {
                         researchTimer.timeCount();
                         restTimer.timeCount();
                         otherTimer.timeCount();
+
+                        dt = LocalDateTime.now();
+                        nowTime.setText(dt.format(dtf));
 
                         mainTimerLabel.setText(mainTimer.formatPrint());
                         allTimerLabel.setText(allTimer.formatPrint());
@@ -43,16 +51,15 @@ public class Controller implements Initializable {
     private Label mainTimerLabel;
     @FXML
     private Label allTimerLabel;
-    @FXML
     public Label childTimerLabel1;
-    @FXML
     public Label childTimerLabel2;
-    @FXML
     public Label childTimerLabel3;
-    @FXML
     public Button mainButton;
-    @FXML
     public Label statusLabel;
+    public Label inDate;
+    public Label nowTime;
+    public Label nowTimeLabel;
+
 
     public Controller() {
 
@@ -104,6 +111,10 @@ public class Controller implements Initializable {
 
             mainButton.setText("らぼいん");
             statusLabel.setText("らぼりだ中");
+            nowTimeLabel.setText("らぼりだ: ");
+
+            dt = LocalDateTime.now();
+            nowTime.setText(dt.format(dtf));
 
 
         }else { //タイマーが動作していない
@@ -114,6 +125,10 @@ public class Controller implements Initializable {
             otherTimer.reset();
             allTimer.reset();
             mainTimer.reset();
+
+            dt = LocalDateTime.now();
+            inDate.setText(dt.format(dtf));
+            nowTimeLabel.setText("現在時刻: ");
 
             mainTimerLabel.setText(mainTimer.formatPrint()); //0に戻ったことを表示
             allTimerLabel.setText(allTimer.formatPrint());
@@ -140,6 +155,7 @@ public class Controller implements Initializable {
         childTimerLabel3.setText(otherTimer.formatPrint());
         mainButton.setText("らぼいん");
         statusLabel.setText("らぼりだ中");
+        nowTimeLabel.setText("らぼりだ: ");
     }
 
 }
