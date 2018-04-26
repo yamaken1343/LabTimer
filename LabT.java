@@ -21,6 +21,6 @@ class LabT {
         status = false;
     }
     String formatPrint(){
-        return String.format("%02d:%02d:%02d", time/3600, time/60, time%60);
+        return String.format("%02d:%02d:%02d", time/3600%60, time/60%60, time%60);
     }
 }
