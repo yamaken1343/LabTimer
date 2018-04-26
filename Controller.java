@@ -111,7 +111,7 @@ public class Controller implements Initializable {
 
             mainButton.setText("らぼいん");
             statusLabel.setText("らぼりだ中");
-            nowTimeLabel.setText("らぼりだ: ");
+            nowTimeLabel.setText("らぼりだ");
 
             dt = LocalDateTime.now();
             nowTime.setText(dt.format(dtf));
@@ -128,7 +128,7 @@ public class Controller implements Initializable {
 
             dt = LocalDateTime.now();
             inDate.setText(dt.format(dtf));
-            nowTimeLabel.setText("現在時刻: ");
+            nowTimeLabel.setText("現在時刻");
 
             mainTimerLabel.setText(mainTimer.formatPrint()); //0に戻ったことを表示
             allTimerLabel.setText(allTimer.formatPrint());
@@ -155,7 +155,7 @@ public class Controller implements Initializable {
         childTimerLabel3.setText(otherTimer.formatPrint());
         mainButton.setText("らぼいん");
         statusLabel.setText("らぼりだ中");
-        nowTimeLabel.setText("らぼりだ: ");
+        nowTimeLabel.setText("らぼりだ");
     }
 
 }

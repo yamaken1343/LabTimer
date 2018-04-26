@@ -10,7 +10,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("labTimer.fxml"));
         primaryStage.setTitle("Lab Timer");
-        primaryStage.setScene(new Scene(root, 400, 275));
+        primaryStage.setScene(new Scene(root, 220, 255));
         primaryStage.show();
     }
 
