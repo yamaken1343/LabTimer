@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import static javafx.animation.Animation.INDEFINITE;
 
 public class Controller implements Initializable {
+    private int c = 0;
     private LabT mainTimer = new LabT();
     private LabT allTimer = new LabT();
     private LabT researchTimer = new LabT();
@@ -28,6 +29,12 @@ public class Controller implements Initializable {
     private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), //時間経過をトリガにするのはTimelineクラスを使う
                 new EventHandler<ActionEvent>() {
                     public void handle(ActionEvent actionEvent) { //ここに書いた処理がDuration.seconds(1)で示した感覚で実行される
+                        c++;
+                        if (c > 60){
+                            c = 0;
+                            timeline.stop();
+                            timeline.play();
+                        }
                         mainTimer.timeCount();
                         allTimer.timeCount();
                         researchTimer.timeCount();
@@ -140,7 +147,7 @@ public class Controller implements Initializable {
             allTimer.active();
             button1Click(null); //らぼいん初回は研究中とする
 
-            timeline.setCycleCount(INDEFINITE); //何回繰り返すか指定する
+            timeline.setCycleCount(100); //何回繰り返すか指定する
             timeline.play();
 
         }
