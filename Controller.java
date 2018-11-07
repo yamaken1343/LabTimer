@@ -5,15 +5,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.util.Duration;
 import javafx.scene.control.Label;
+import javafx.util.Duration;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
-
-import static javafx.animation.Animation.INDEFINITE;
 
 public class Controller implements Initializable {
     private int c = 0;
@@ -24,7 +27,9 @@ public class Controller implements Initializable {
     private LabT otherTimer = new LabT();
 
     private LocalDateTime dt;
+    private LocalDateTime startTime;
     private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd HH:mm:ss");
+    private DateTimeFormatter dtfYear = DateTimeFormatter.ofPattern("uuuu/MM/dd-HH:mm:ss");
 
     private Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), //時間経過をトリガにするのはTimelineクラスを使う
                 new EventHandler<ActionEvent>() {
@@ -72,6 +77,25 @@ public class Controller implements Initializable {
 
     }
 
+    private void writeCSV() {
+        try {
+            String home = System.getProperty("user.home");
+            FileWriter f = new FileWriter(home + "/.labtimer_log", true);
+            PrintWriter pw = new PrintWriter(new BufferedWriter(f));
+            pw.print(startTime.format(dtfYear) + ", ");
+            pw.print(LocalDateTime.now().format(dtfYear) + ", ");
+            pw.print(startTime.toEpochSecond(OffsetDateTime.now().getOffset()) + ", ");
+            pw.print(LocalDateTime.now().toEpochSecond(OffsetDateTime.now().getOffset()) + ", ");
+            pw.print(allTimer.getTime() + ", ");
+            pw.print(researchTimer.getTime() + ", ");
+            pw.print(restTimer.getTime() + ", ");
+            pw.println(otherTimer.getTime());
+            pw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void button1Click(ActionEvent actionEvent) {
         researchTimer.active();
         restTimer.inactive();
@@ -116,6 +140,8 @@ public class Controller implements Initializable {
 
             timeline.stop();
 
+            writeCSV();
+
             mainButton.setText("らぼいん");
             statusLabel.setText("らぼりだ中");
             nowTimeLabel.setText("らぼりだ");
@@ -134,6 +160,7 @@ public class Controller implements Initializable {
             mainTimer.reset();
 
             dt = LocalDateTime.now();
+            startTime = dt;
             inDate.setText(dt.format(dtf));
             nowTimeLabel.setText("現在時刻");
 
