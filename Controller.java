@@ -84,6 +84,11 @@ public class Controller implements Initializable {
             PrintWriter pw = new PrintWriter(new BufferedWriter(f));
             pw.print(startTime.format(dtfYear) + ", ");
             pw.print(LocalDateTime.now().format(dtfYear) + ", ");
+            pw.print(allTimer.formatPrint() + ", ");
+            pw.print(researchTimer.formatPrint() + ", ");
+            pw.print(restTimer.formatPrint() + ", ");
+            pw.print(otherTimer.formatPrint() + ", ");
+
             pw.print(startTime.toEpochSecond(OffsetDateTime.now().getOffset()) + ", ");
             pw.print(LocalDateTime.now().toEpochSecond(OffsetDateTime.now().getOffset()) + ", ");
             pw.print(allTimer.getTime() + ", ");
